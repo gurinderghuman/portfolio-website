@@ -21,3 +21,5 @@ steps:
   - 'CLOUDSDK_CONTAINER_CLUSTER=portfolio-cluster'
 images:
 - 'gcr.io/portfolio-website-433505/portfolio-website:$COMMIT_SHA'
+options:
+  logging: CLOUD_LOGGING_ONLY
