@@ -1,0 +1,23 @@
+steps:
+# Build the container image
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/portfolio-website-433505/portfolio-website:$COMMIT_SHA', '.']
+# Push the container image to Container Registry
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/portfolio-website-433505/portfolio-website:$COMMIT_SHA']
+# Deploy container image to GKE
+- name: 'gcr.io/cloud-builders/gke-deploy'
+  args:
+  - run
+  - --filename=deployment.yaml
+  - --image=gcr.io/portfolio-website-433505/portfolio-website:$COMMIT_SHA
+  - --location=us-central1-c
+  - --cluster=portfolio-cluster
+# Update the service
+- name: 'gcr.io/cloud-builders/kubectl'
+  args: ['apply', '-f', 'service.yaml']
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=us-central1-c'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=portfolio-cluster'
+images:
+- 'gcr.io/portfolio-website-433505/portfolio-website:$COMMIT_SHA'
