@@ -19,6 +19,12 @@ steps:
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=us-central1-c'
   - 'CLOUDSDK_CONTAINER_CLUSTER=portfolio-cluster'
+# Apply the ingress
+- name: 'gcr.io/cloud-builders/kubectl'
+  args: ['apply', '-f', 'ingress.yaml']
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=us-central1-c'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=portfolio-cluster'
 images:
 - 'gcr.io/portfolio-website-433505/portfolio-website:$COMMIT_SHA'
 options:
