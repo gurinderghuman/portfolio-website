@@ -25,11 +25,14 @@ const PhotoCarousel: React.FC<PhotoCarouselProps> = ({ photos }) => {
     <div className={styles.carousel}>
       <button className={styles.arrow} onClick={prevPhoto}>&lt;</button>
       <div className={styles.imageContainer}>
-        <image
-          src={photos[currentIndex].src}
-          alt={photos[currentIndex].alt}
-          className={styles.image}
-        />
+        <svg width="100%" height="100%">
+          <image
+            href={photos[currentIndex].src}
+            className={styles.image}
+            width="100%"
+            height="100%"
+          />
+        </svg>
       </div>
       <button className={styles.arrow} onClick={nextPhoto}>&gt;</button>
       <div className={styles.indicators}>
